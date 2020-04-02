@@ -1,11 +1,14 @@
 # NextCloud Installation Instructions including NGINX
 ### Prerequisites
+
 - A server running Debian 10.
 - A valid domain name pointed with your server IP. in this tutorial, we will use nextcloud.example.com domain.
 - A root password is configured on your server.
 <br>
 <br>
+
 #### Install Apache, MariaDB and PHP 
+
 <br>
 NextCloud runs on the webserver, written in PHP and uses MariaDB to store their data. So you will need to install Apache, MariaDB, PHP and other required packages on your system. <br>You can install all of them by running the following command:
 
@@ -98,7 +101,6 @@ Add the following lines:
 </VirtualHost>
 ```
 Save and close the file when you are finished. Then, enable the Apache virtual host file and other required modules using the following commands:
-Advertisements
 
 ``` bash
 a2ensite nextcloud.conf
