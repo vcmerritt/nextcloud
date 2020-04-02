@@ -2,7 +2,7 @@
 ### Prerequisites
 
 - A server running Debian 10.
-- A valid domain name pointed with your server IP. in this tutorial, we will use nextcloud.example.com domain.
+- A registered domain name and the ability to make DNS Changes.
 - A root password is configured on your server.
 
 #### Install Apache, MariaDB and PHP 
