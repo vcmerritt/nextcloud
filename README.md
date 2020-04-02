@@ -127,3 +127,8 @@ http://IPADDRofNextCloudServer/nextcloud
 ```
 
 Pick a NextCloud Admin account user name, and password, then enter the database information using the information from the commands you executed when you used mysql to create the database (see commands above to jog your memory).
+
+## Install NGINX to enable SSL
+Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
+
+https://github.com/vcmerritt/nginx
