@@ -4,8 +4,6 @@
 - A server running Debian 10.
 - A valid domain name pointed with your server IP. in this tutorial, we will use nextcloud.example.com domain.
 - A root password is configured on your server.
-<br>
-<br>
 
 #### Install Apache, MariaDB and PHP 
 
