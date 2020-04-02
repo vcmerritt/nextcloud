@@ -122,7 +122,8 @@ ip addr
 <br>
 Navigate to the NextCloud server using the IP Address obtained above, and finish the configuration by supplying the details requested.  
 
+```
 http://IPADDRofNextCloudServer/nextcloud
+```
 
-<br>
 Pick a NextCloud Admin account user name, and password, then enter the database information using the information from the commands you executed when you used mysql to create the database (see commands above to jog your memory).
