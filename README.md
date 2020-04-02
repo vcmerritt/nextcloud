@@ -18,8 +18,8 @@ nano /etc/php/7.3/apache2/php.ini
 Change the following settings:
 
 memory_limit = 512M
-upload_max_filesize = 500M
-post_max_size = 500M
+upload_max_filesize = 2000M
+post_max_size = 2000M
 max_execution_time = 300
 date.timezone = America/Edmonton
 ```
