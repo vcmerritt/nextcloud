@@ -35,8 +35,8 @@ systemctl start apache2
  ```
 Once you are done, you can proceed to the next step.
 
-Configure Database for NextCloud
-Next, you will need to create a database and database user for NextCloud. To do so, log in to MariaDB shell with the following command:
+### Configure Database for NextCloud
+Create a database and database user for NextCloud.
 ``` bash
 mysql -u root -p
 Provide your root password when asked then create a database and user with the following command:
