@@ -110,3 +110,17 @@ Finally, restart the Apache service to apply the new configuration:
 
 systemctl restart apache2
 ```
+
+### Connect to NextCloud and Finish Configuration
+In this step you will need to get the IP Address of the NextCloud system you are building to finish the configuration. To start with get the IP Address of the NextCloud system by typing ip addr:
+
+``` bash
+ip addr
+```
+
+**Open NextCloud in a web browser**
+Navigate to the NextCloud server using the IP Address obtained above, and finish the configuration by supplying the details requested.  Pick a NextCloud Admin account user name, and password, then enter the database information using the information from the commands you executed when you used mysql to create the database (see commands above to jog your memory).
+
+http://IPADDRofNextCloudServer/nextcloud
+
+
