@@ -27,9 +27,9 @@ date.timezone = America/Edmonton
 Save and close the file when you are finished. Then, start the Apache and MariaDB service and enable them to start after system reboot with the following command:
 ``` bash
 systemctl start apache2
- systemctl start mariadb
- systemctl enable apache2
- systemctl enable mariadb
+systemctl start mariadb
+systemctl enable apache2
+systemctl enable mariadb
  ```
 Once you are done, you can proceed to the next step.
 
