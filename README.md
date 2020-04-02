@@ -21,7 +21,7 @@ memory_limit = 512M
 upload_max_filesize = 500M
 post_max_size = 500M
 max_execution_time = 300
-date.timezone = Asia/Kolkata
+date.timezone = America/Edmonton
 ```
 
 Save and close the file when you are finished. Then, start the Apache and MariaDB service and enable them to start after system reboot with the following command:
