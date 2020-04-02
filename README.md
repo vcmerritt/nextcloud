@@ -53,12 +53,12 @@ Once you are done, you can proceed to the next step.
 Download NextCloud
 First, visit the NextCloud download page and download the latest version of the NextCloud on your system. At the time of writing this article, the latest version of NextCloud is 17.0.1. You can download it with the following command:
 ``` bash
-wget https://download.nextcloud.com/server/releases/nextcloud-17.0.1.zip
+wget https://download.nextcloud.com/server/releases/nextcloud-18.0.3.zip
 ```
 Once the download is completed, unzip the downloaded file with the following command:
 
 ``` bash
-unzip nextcloud-17.0.1.zip
+unzip nextcloud-18.0.3.zip
 Next, move the extracted directory to the Apache web root directory:
 mv nextcloud /var/www/html/
 Next, give proper permissions to the nextcloud directory with the following command:
