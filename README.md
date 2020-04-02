@@ -5,7 +5,8 @@
 - A root password is configured on your server.
 <br>
 <br>
-### Install Apache, MariaDB and PHP <br>
+### Install Apache, MariaDB and PHP 
+<br>
 NextCloud runs on the webserver, written in PHP and uses MariaDB to store their data. So you will need to install Apache, MariaDB, PHP and other required packages on your system. <br>You can install all of them by running the following command:
 
 ``` bash
