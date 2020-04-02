@@ -4,9 +4,11 @@
 - A valid domain name pointed with your server IP. in this tutorial, we will use nextcloud.example.com domain.
 - A root password is configured on your server.
 <br>
+_Emphasized text_
+<br>
 *** Install Apache, MariaDB and PHP *** <br>
 NextCloud runs on the webserver, written in PHP and uses MariaDB to store their data. So you will need to install Apache, MariaDB, PHP and other required packages on your system. <br>You can install all of them by running the following command:
-___Strong emphasized text___ or ***Strong emphasized text***
+
 ``` bash
 apt-get install apache2 libapache2-mod-php mariadb-server php-xml php-cli php-cgi php-mysql php-mbstring php-gd php-curl php-zip wget unzip -y
 ```
