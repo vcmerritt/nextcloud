@@ -131,9 +131,8 @@ Pick a NextCloud Admin account user name, and password, then enter the database 
 ## Install Collabera Online Document Editor Solution
 This will allow you to create and edit documents online from within NextCloud via a web browser (similar to google docs) using LibreOffice Online.   
 
+**LOOLWSD Installation**
 ``` bash 
-LOOLWSD Installation
-
 wget https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-centos7/repodata/repomd.xml.key && apt-key add repomd.xml.key
 echo 'deb https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-debian10 ./' >> /etc/apt/sources.list
 apt update && apt install loolwsd code-brand
