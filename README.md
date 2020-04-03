@@ -139,6 +139,10 @@ apt update && apt install loolwsd code-brand
 cp ~/nginx_nextcloud/loolwsd.xml /etc/loolwsd
 systemctl restart loolwsd
 journalctl -u loolwsd
+mkdir /opt/lool/jails
+chown lool:lool /opt/lool -R
+touch /var/log/loolwsd.log 
+chown lool:lool /var/log/loolwsd.log
 ```
 
 ## Install NGINX to enable SSL
