@@ -128,6 +128,19 @@ http://IPADDRofNextCloudServer/nextcloud
 
 Pick a NextCloud Admin account user name, and password, then enter the database information using the information from the commands you executed when you used mysql to create the database (see commands above to jog your memory).
 
+## Install Collabera Online Document Editor Solution
+This will allow you to create and edit documents online from within NextCloud via a web browser (similar to google docs) using LibreOffice Online.   
+LOOLWSD Installation
+
+``` bash 
+wget https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-centos7/repodata/repomd.xml.key && apt-key add repomd.xml.key
+echo 'deb https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-debian10 ./' >> /etc/apt/sources.list
+apt update && apt install loolwsd code-brand
+cp ~/nginx_nextcloud/loolwsd.xml /etc/loolwsd
+systemctl restart loolwsd
+journalctl -u loolwsd
+```
+
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
 
