@@ -137,12 +137,12 @@ wget https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-centos7/repodata
 echo 'deb https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-debian10 ./' >> /etc/apt/sources.list
 apt update && apt install loolwsd code-brand
 cp ~/nginx_nextcloud/loolwsd.xml /etc/loolwsd
-systemctl restart loolwsd
-journalctl -u loolwsd
 mkdir /opt/lool/jails
 chown lool:lool /opt/lool -R
 touch /var/log/loolwsd.log 
 chown lool:lool /var/log/loolwsd.log
+systemctl restart loolwsd
+journalctl -u loolwsd
 ```
 
 ## Install NGINX to enable SSL
