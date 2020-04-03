@@ -100,6 +100,7 @@ Add the following lines:
 Save and close the file when you are finished. Then, enable the Apache virtual host file and other required modules using the following commands:
 
 ``` bash
+export PATH=$PATH:/usr/sbin
 a2ensite nextcloud.conf
  a2enmod rewrite
  a2enmod headers
