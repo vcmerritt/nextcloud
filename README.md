@@ -165,8 +165,6 @@ sudo -u www-data php /var/www/html/nextcloud/occ db:convert-filecache-bigint
 vi /var/www/html/nextcloud/config/config.php  
    'memcache.local' => '\OC\Memcache\APCu',
 
-systemctl restart apache2
-
 #php.ini additional settings
 vi /etc/php/7.3/apache2/php.ini
 apc.enable_cli=1
@@ -176,6 +174,8 @@ opcache.max_accelerated_files=10000
 opcache.memory_consumption=128
 opcache.save_comments=1
 opcache.revalidate_freq=1
+
+systemctl restart apache2
 ```
 
 ## Install NGINX to enable SSL
