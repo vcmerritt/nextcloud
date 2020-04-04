@@ -39,14 +39,16 @@ Create a database and database user for NextCloud.
 mysql -u root -p
 Provide your root password when asked then create a database and user with the following command:
 
-MariaDB [(none)]> CREATE DATABASE nextclouddb;
- MariaDB [(none)]> CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY 'password';
-Next, grant all the privileges to the nextclouddb with the following command:
-MariaDB [(none)]> GRANT ALL ON nextclouddb.* TO 'nextclouduser'@'localhost';
-Next, flush the privileges and exit from the MariaDB shell with the following command:
+CREATE DATABASE nextclouddb;
+CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY 'password';
 
-MariaDB [(none)]> FLUSH PRIVILEGES;
- MariaDB [(none)]> EXIT;
+Grant all the privileges to the nextclouddb with the following command:
+GRANT ALL ON nextclouddb.* TO 'nextclouduser'@'localhost';
+
+Flush the privileges and exit from the MariaDB shell with the following command:
+FLUSH PRIVILEGES;
+EXIT;
+
 Once you are done, you can proceed to the next step.
 ```
 
