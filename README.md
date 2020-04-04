@@ -153,6 +153,31 @@ chown lool:lool /var/log/loolwsd.log
 systemctl restart loolwsd
 ```
 
+## Optimizations for NextCloud
+``` bash
+apt-get install sudo php-intl php-imagick php-apcu -y
+sudo -u www-data php /var/www/html/nextcloud/occ db:add-missing-indices
+
+#Answer Y when prompted during the execution of the following command:
+sudo -u www-data php /var/www/html/nextcloud/occ db:convert-filecache-bigint    
+
+#Add the following line - careful not to break anything.
+vi /var/www/html/nextcloud/config/config.php  
+   'memcache.local' => '\OC\Memcache\APCu',
+
+systemctl restart apache2
+
+#php.ini additional settings
+vi /etc/php/7.3/apache2/php.ini
+apc.enable_cli=1
+opcache.enable=1
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=10000
+opcache.memory_consumption=128
+opcache.save_comments=1
+opcache.revalidate_freq=1
+```
+
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
 
