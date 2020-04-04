@@ -145,7 +145,7 @@ This will allow you to create and edit documents online from within NextCloud vi
 ``` bash 
 wget https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-centos7/repodata/repomd.xml.key && apt-key add repomd.xml.key
 echo 'deb https://www.collaboraoffice.com/repos/CollaboraOnline/CODE-debian10 ./' >> /etc/apt/sources.list
-apt update && apt install loolwsd code-brand
+apt update && apt install loolwsd code-brand -y
 mkdir /opt/lool/jails
 chown lool:lool /opt/lool -R
 touch /var/log/loolwsd.log 
