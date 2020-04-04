@@ -59,17 +59,24 @@ Once the download is completed, unzip the downloaded file with the following com
 
 ``` bash
 unzip nextcloud-18.0.3.zip
-Next, move the extracted directory to the Apache web root directory:
-mv nextcloud /var/www/html/
-Next, give proper permissions to the nextcloud directory with the following command:
+```
 
+Next, move the extracted directory to the Apache web root directory and create a data directory:
+``` bash
+mv nextcloud /var/www/html/
+mkdir /mnt/data
+chown -R www-data:www-data /mnt/data
+```
+
+Give proper permissions to the nextcloud directory with the following command:
+``` bash
 chown -R www-data:www-data /var/www/html/nextcloud/
  chmod -R 755 /var/www/html/nextcloud/
 Once you are finished, you can proceed to the next step.
 ```
 
 Configure Apache for NextCloud
-Next, you will need to create an Apache virtual host configuration file to serve NextCloud. You can create it with the following command:
+Create an Apache virtual host configuration file to serve NextCloud. You can create it with the following command:
 ``` bash
 nano /etc/apache2/sites-available/nextcloud.conf
 Add the following lines:
@@ -121,7 +128,7 @@ ip addr
 
 **Open NextCloud in a web browser**
 <br>
-Navigate to the NextCloud server using the IP Address obtained above, and finish the configuration by supplying the details requested.  
+Navigate to the NextCloud server using the IP Address obtained above, and finish the configuration by supplying the details requested.  Make sure you specify /mnt/data as the data directory.   This directory can be an ISCSI mount, NFS, or another local disk / virtual disk or if you are just testing you can leave it on the same volume as NextCloud (for testing only). 
 
 ```
 http://IPADDRofNextCloudServer/nextcloud
