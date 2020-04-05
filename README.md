@@ -161,7 +161,7 @@ sudo -u www-data php /var/www/html/nextcloud/occ db:add-missing-indices
 #Answer Y when prompted during the execution of the following command:
 sudo -u www-data php /var/www/html/nextcloud/occ db:convert-filecache-bigint    
 
-#Execute the following command
+#Execute the following command to enable memory caching
 sed -i 's/  '"'installed'"' => true,/  '"'memcache\.local'"' => '"'\\\\OC\\\\\Memcache\\\\\APCu'"',\n  '"'installed'"' => true,/g' /var/www/html/nextcloud/config/config.php
 
 Note:  The command above will add the following line to the config.php file for nextcloud before the line that states installed => true
