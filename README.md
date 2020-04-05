@@ -162,7 +162,8 @@ sudo -u www-data php /var/www/html/nextcloud/occ db:add-missing-indices
 sudo -u www-data php /var/www/html/nextcloud/occ db:convert-filecache-bigint    
 
 #Execute the following command
-sed 's/  '"'installed'"' => true,/  '"'memcache\.local'"' => '"'\\\\OC\\\\\Memcache\\\\\APCu'"',\n  '"'installed'"' => true,/g' /var/www/html/nextcloud/config/config.php
+sed -i 's/  '"'installed'"' => true,/  '"'memcache\.local'"' => '"'\\\\OC\\\\\Memcache\\\\\APCu'"',\n  '"'installed'"' => true,/g'  \
+/var/www/html/nextcloud/config/config.php
 
 Note:  The command above will add the following line to the config.php file for nextcloud before the line that states installed => true
    'memcache.local' => '\OC\Memcache\APCu',
