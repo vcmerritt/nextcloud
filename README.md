@@ -71,8 +71,8 @@ chown -R www-data:www-data /mnt/data
 Give proper permissions to the nextcloud directory with the following command:
 ``` bash
 chown -R www-data:www-data /var/www/html/nextcloud/
- chmod -R 755 /var/www/html/nextcloud/
-Once you are finished, you can proceed to the next step.
+chmod -R 755 /var/www/html/nextcloud/
+
 ```
 
 Configure Apache for NextCloud
