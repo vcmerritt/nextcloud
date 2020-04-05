@@ -78,9 +78,7 @@ Once you are finished, you can proceed to the next step.
 Configure Apache for NextCloud
 Create an Apache virtual host configuration file to serve NextCloud. You can create it with the following command:
 ``` bash
-nano /etc/apache2/sites-available/nextcloud.conf
-Add the following lines:
-
+cat <<EOF > /etc/apache2/sites-available/nextcloud.conf
 <VirtualHost *:80>
      ServerAdmin admin@example.com
      DocumentRoot /var/www/html/nextcloud/
@@ -103,6 +101,7 @@ Add the following lines:
      CustomLog ${APACHE_LOG_DIR}/access.log combined
 
 </VirtualHost>
+EOF
 ```
 Save and close the file when you are finished. Then, enable the Apache virtual host file and other required modules using the following commands:
 
