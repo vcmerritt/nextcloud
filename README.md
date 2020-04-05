@@ -17,11 +17,11 @@ Once all the packages are installed, open the php.ini file and tweak some recomm
 nano /etc/php/7.3/apache2/php.ini
 Change the following settings:
 
-memory_limit = 512M
-upload_max_filesize = 2000M
-post_max_size = 2000M
-max_execution_time = 300
-date.timezone = America/Edmonton
+sed -i 's/memory_limit = 128/memory_limit = 512/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 2000M/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 2000M/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;date\.timezone =/date\.timezone = America\/Edmonton'/g /etc/php/7.3/apache2/php.ini
 ```
 
 Save and close the file when you are finished. Then, start the Apache and MariaDB service and enable them to start after system reboot with the following command:
