@@ -152,7 +152,7 @@ chown lool:lool /var/log/loolwsd.log
 systemctl restart loolwsd
 ```
 
-## Optimizations for NextCloud
+## Optimizations for NextCloud  - Complete after NextCloud initialization is finished.
 ``` bash
 apt-get install sudo php-intl php-imagick php-apcu -y
 sudo -u www-data php /var/www/html/nextcloud/occ db:add-missing-indices
