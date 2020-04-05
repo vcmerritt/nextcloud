@@ -12,10 +12,8 @@ NextCloud runs on the webserver, written in PHP and uses MariaDB to store their 
 ``` bash
 apt-get install apache2 libapache2-mod-php mariadb-server php-xml php-cli php-cgi php-mysql php-mbstring php-gd php-curl php-zip wget unzip gnupg2 -y
 ```
-Once all the packages are installed, open the php.ini file and tweak some recommended settings:
+Once all the packages are installed, modify the php.ini file to change some values to the minimum recommended settings:
 ``` bash
-nano /etc/php/7.3/apache2/php.ini
-Change the following settings:
 
 sed -i 's/memory_limit = 128/memory_limit = 512/g' /etc/php/7.3/apache2/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 2000M/g' /etc/php/7.3/apache2/php.ini
