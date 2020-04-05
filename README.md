@@ -161,12 +161,20 @@ sudo -u www-data php /var/www/html/nextcloud/occ db:add-missing-indices
 #Answer Y when prompted during the execution of the following command:
 sudo -u www-data php /var/www/html/nextcloud/occ db:convert-filecache-bigint    
 
-#Add the following line - careful not to break anything.
-vi /var/www/html/nextcloud/config/config.php  
-   'memcache.local' => '\OC\Memcache\APCu',
+#Execute the following command
+sed 's/  '"'installed'"' => true,/  '"'memcache\.local'"' => '"'\\\\OC\\\\\Memcache\\\\\APCu'"',\n  '"'installed'"' => true,/g' /var/www/html/nextcloud/config/config.php
 
+Note:  The command above will add the following line to the config.php file for nextcloud before the line that states installed => true
+   'memcache.local' => '\OC\Memcache\APCu',
+   
 #php.ini additional settings
-vi /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache\.enable=1/opcache\.enable=1\napc\.enable_cli=1/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache\.interned_strings_buffer=8/opcache\.interned_strings_buffer=8/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache.max_accelerated_files=10000/opcache\.max_accelerated_files=10000/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache\.memory_consumption=128/opcache\.memory_consumption=128/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache\.save_comments=1/opcache\.save_comments=1/g' /etc/php/7.3/apache2/php.ini
+sed -i 's/;opcache.revalidate_freq=2/opcache\.revalidate_freq=1/g' /etc/php/7.3/apache2/php.ini
+# The sed lines above change the following opcache settings
 apc.enable_cli=1
 opcache.enable=1
 opcache.interned_strings_buffer=8
@@ -175,6 +183,7 @@ opcache.memory_consumption=128
 opcache.save_comments=1
 opcache.revalidate_freq=1
 
+#Restart apache to make the php changes take effect.
 systemctl restart apache2
 ```
 
