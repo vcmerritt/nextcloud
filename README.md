@@ -110,6 +110,7 @@ export PATH=$PATH:/usr/sbin
 a2ensite nextcloud.conf
 a2enmod rewrite
 a2enmod headers
+systemctl restart apache2
 
 -- These next a2enmod statements are not necessary on Deb 10 but may be required on other versions so they are included here --
 a2enmod env
