@@ -10,7 +10,7 @@
 NextCloud runs on the webserver, written in PHP and uses MariaDB to store their data. So you will need to install Apache, MariaDB, PHP and other required packages on your system. <br>You can install all of them by running the following command:
 
 ``` bash
-apt-get install apache2 libapache2-mod-php mariadb-server php-xml php-cli php-cgi php-mysql php-mbstring php-gd php-curl php-zip wget unzip gnupg2 -y
+apt-get install apache2 libapache2-mod-php mariadb-server php-xml php-cli php-cgi php-mysql php-mbstring php-gd php-curl smbclient php-zip wget unzip gnupg2 -y
 ```
 Once all the packages are installed, modify the php.ini file to change some values to the minimum recommended settings:
 ``` bash
