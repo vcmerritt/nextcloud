@@ -6,7 +6,7 @@
 
 #### Install Apache, MariaDB and PHP 
 
-NextCloud is a website that will be hosted on Apache2.  It is written in PHP, and uses MariaDB/MySQL to store data specific to the different users and server configuration. To support the installation of NextCloud, the Debian 10 system will need Apache Tomcat, MariaDB, PHP and other supporting packages on your system. <br>Start by installing the initial packages we will need using the following command:
+NextCloud is a website that will be hosted on Apache2.  It is written in PHP, and uses MariaDB/MySQL to store data specific to the different users and server configuration. To support the installation of NextCloud, the Debian 10 system will need Apache2, MariaDB, PHP and other supporting packages on your system. <br><br>Start by installing the initial packages we will need using the following command:
 
 ``` bash
 apt-get install apache2 libapache2-mod-php mariadb-server php-xml php-ldap php-cli php-cgi php-mysql php-mbstring php-gd php-curl smbclient php-zip wget unzip gnupg2 -y
