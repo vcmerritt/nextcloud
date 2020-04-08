@@ -2,8 +2,7 @@
 ### Prerequisites
 
 - A server running Debian 10.
-- A registered domain name and the ability to make DNS Changes.
-- A root password is configured on your server.
+- The ability to make DNS Changes
 
 #### Install Apache, MariaDB and PHP 
 
