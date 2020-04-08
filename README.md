@@ -34,7 +34,7 @@ Once you are done, you can proceed to the next step.
 Create a database and database user for NextCloud.
 ``` bash
 mysql -u root -p
-Provide your root password when asked then create a database and user with the following command:
+Provide your root password when asked then create a database and user with the following commands:
 
 CREATE DATABASE nextclouddb;
 CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY 'password';
@@ -67,7 +67,7 @@ mkdir /mnt/data
 chown -R www-data:www-data /mnt/data
 ```
 
-Give proper permissions to the nextcloud directory with the following command:
+Give proper permissions to the nextcloud directory with the following commands:
 ``` bash
 chown -R www-data:www-data /var/www/html/nextcloud/
 chmod -R 755 /var/www/html/nextcloud/
