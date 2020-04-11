@@ -200,6 +200,20 @@ opcache.revalidate_freq=1
 #Restart apache to make the php changes take effect.
 systemctl restart apache2
 ```
+# Join the Domain and Configure Sudoers
+
+``` bash
+
+
+#Join the domain
+/usr/sbin/realm join --user=DomainJoinUser sageisgcorp.com --install=/
+
+#Modify the SSSD.conf to ensure the domain is capitalized in the correct locations.
+/usr/bin/sed -i "s/domains = SageISGCorp.com/domains = SAGEISGCORP.COM/" /etc/sssd/sssd.conf
+/usr/bin/sed -i "s/domain\/SageISGCorp.com/domain\/SAGEISGCORP.COM/" /etc/sssd/sssd.conf
+/usr/bin/sed -i "s/use_fully_qualified_names = True/use_fully_qualified_names = False/" /etc/sssd/sssd.conf
+echo "session optional      pam_oddjob_mkhomedir.so skel=/etc/skel" >> /etc/pam.d/common-session
+```
 
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
