@@ -5,7 +5,9 @@
 - The ability to make DNS Changes
 
 
-Change the hostname of the VM before installing NextCloud
+# Set the System Host Name and IP Address
+``` bash
+#Change the hostname of the VM before installing NextCloud
 sed -i 's/BaseVMBuild/NextCloud01/g' /etc/hosts
 sed -i 's/BaseVMBuild/NextCloud01/g' /etc/hostname
 
@@ -15,7 +17,7 @@ sed -i 's/dhcp/static\n   address 192\.168\.2\.45\n   netmask 255\.255\.255\.0\n
 
 #Reboot Server to make the change take effect
 /usr/sbin/reboot
-
+```
 
 #### Install Apache, MariaDB and PHP 
 
