@@ -5,7 +5,7 @@
 - The ability to make DNS Changes
 
 
-# Set the System Host Name and IP Address
+## Set the System Host Name and IP Address
 ``` bash
 #Change the hostname of the VM before installing NextCloud
 sed -i 's/BaseVMBuild/NextCloud01/g' /etc/hosts
