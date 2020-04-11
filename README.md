@@ -232,6 +232,10 @@ cat <<EOF > /etc/krb5.conf
         .mydomain.com = MYDOMAIN.COM
 EOF
 ```
+## Modify PAM settings to enable auto-creation of home directorys for Active Directory users
+``` bash
+echo "session optional      pam_oddjob_mkhomedir.so skel=/etc/skel" >> /etc/pam.d/common-session
+```
 
 ## Configure DNS Resolution and Join Domain
 ```
