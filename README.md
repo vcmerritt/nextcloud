@@ -4,6 +4,19 @@
 - A server running Debian 10.
 - The ability to make DNS Changes
 
+
+Change the hostname of the VM before installing NextCloud
+sed -i 's/BaseVMBuild/NextCloud01/g' /etc/hosts
+sed -i 's/BaseVMBuild/NextCloud01/g' /etc/hostname
+
+Change the Network to use a static IP Address (NextCloud01)
+#Make sure you change the IP, mask and gateway to the correct IP before executing this command
+sed -i 's/dhcp/static\n   address 192\.168\.2\.45\n   netmask 255\.255\.255\.0\n   gateway 192\.168\.2\.1\n   dns-nameservers 192\.168\.2\.40\n   dns-domain mydomain\.com\n   dns-search mydomain\.com/g' /etc/network/interfaces
+
+#Reboot Server to make the change take effect
+/usr/sbin/reboot
+
+
 #### Install Apache, MariaDB and PHP 
 
 NextCloud is a website that will be hosted on Apache2.  It is written in PHP, and uses MariaDB/MySQL to store data specific to the different users and server configuration. To support the installation of NextCloud, the Debian 10 system will need Apache2, MariaDB, PHP and other supporting packages on your system. <br><br>Start by installing the initial packages we will need using the following command:
