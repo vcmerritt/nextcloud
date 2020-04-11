@@ -202,8 +202,10 @@ systemctl restart apache2
 ```
 
 # Join the Domain and Configure Sudoers
-# Clean up or create the /etc/krb5.conf
+### Clean up or create the /etc/krb5.conf
 Copy this text to a notepad document and change the occurrences of MYDOMAIN.COM or mydomain.com to the correct domain name you are creating for your environment.
+
+## Configure /etc/krb5.conf
 ``` bash
 cat <<EOF > /etc/krb5.conf
 [libdefaults]
@@ -230,6 +232,8 @@ cat <<EOF > /etc/krb5.conf
         .mydomain.com = MYDOMAIN.COM
 EOF
 ```
+
+## Configure DNS Resolution and Join Domain
 ```
 #Modify resolv.conf to point to AD Domain Controller(s):
 #Change /etc/resolv.conf
@@ -239,8 +243,6 @@ echo search mydomain.com >> /etc/resolv.conf
 echo nameserver 192.168.2.40 >> /etc/resolv.conf
 echo nameserver 192.168.2.41 >> /etc/resolv.conf
 
-``` bash
-``` bash
 #Join the domain
 /usr/sbin/realm join --user=DomainJoinUser sageisgcorp.com --install=/
 
@@ -250,6 +252,8 @@ echo nameserver 192.168.2.41 >> /etc/resolv.conf
 /usr/bin/sed -i "s/use_fully_qualified_names = True/use_fully_qualified_names = False/" /etc/sssd/sssd.conf
 echo "session optional      pam_oddjob_mkhomedir.so skel=/etc/skel" >> /etc/pam.d/common-session
 ```
+
+## Configure Sudoers to authorize users based on AD Groups
 ``` bash
 #Add Active Directory Group to sudoers file
 echo '%linuxsudoers           ALL=(ALL)       ALL' >> /etc/sudoers
