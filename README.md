@@ -225,9 +225,9 @@ cat <<EOF > /etc/krb5.conf
 
 [realms]
         MYDOMAIN.COM = {
-                kdc = SambaDC01.mydomain.com
-                kdc = sambadc02.mydomain.com
-                admin_server = SambaDC01.mydomain.com
+                kdc = SAMBADC01.mydomain.com
+                kdc = SAMBADC02.mydomain.com
+                admin_server = SAMBADC01.mydomain.com
                 default_domain = mydomain.com
         }
 
@@ -251,7 +251,7 @@ echo nameserver 192.168.2.40 >> /etc/resolv.conf
 echo nameserver 192.168.2.41 >> /etc/resolv.conf
 
 #Join the domain
-/usr/sbin/realm join --user=DomainJoinUser mydomain.com --install=/
+/usr/sbin/realm join --user=administrator mydomain.com --install=/
 
 #Tweak the /etc/sssd/sssd.conf file to enable authentication to the newly installed AD
 cat <<EOF > /etc/sssd/sssd.conf 
