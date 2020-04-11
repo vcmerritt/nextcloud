@@ -200,11 +200,47 @@ opcache.revalidate_freq=1
 #Restart apache to make the php changes take effect.
 systemctl restart apache2
 ```
+
 # Join the Domain and Configure Sudoers
+# Clean up or create the /etc/krb5.conf
+Copy this text to a notepad document and change the occurrences of MYDOMAIN.COM or mydomain.com to the correct domain name you are creating for your environment.
+``` bash
+cat <<EOF > /etc/krb5.conf
+[libdefaults]
+        default_realm = MYDOMAIN.COM
+        rdns=false
+
+# The following krb5.conf variables are only for MIT Kerberos.
+        kdc_timesync = 1
+        ccache_type = 4
+        forwardable = true
+        proxiable = true
+
+        fcc-mit-ticketflags = true
+
+[realms]
+        MYDOMAIN.COM = {
+                kdc = SambaDC01.mydomain.com
+                kdc = sambadc02.mydomain.com
+                admin_server = SambaDC01.mydomain.com
+                default_domain = mydomain.com
+        }
+
+[domain_realm]
+        .mydomain.com = MYDOMAIN.COM
+EOF
+```
+```
+#Modify resolv.conf to point to AD Domain Controller(s):
+#Change /etc/resolv.conf
+
+echo domain mydomain.com > /etc/resolv.conf
+echo search mydomain.com >> /etc/resolv.conf
+echo nameserver 192.168.2.40 >> /etc/resolv.conf
+echo nameserver 192.168.2.41 >> /etc/resolv.conf
 
 ``` bash
-
-
+``` bash
 #Join the domain
 /usr/sbin/realm join --user=DomainJoinUser sageisgcorp.com --install=/
 
@@ -214,7 +250,18 @@ systemctl restart apache2
 /usr/bin/sed -i "s/use_fully_qualified_names = True/use_fully_qualified_names = False/" /etc/sssd/sssd.conf
 echo "session optional      pam_oddjob_mkhomedir.so skel=/etc/skel" >> /etc/pam.d/common-session
 ```
+``` bash
+#Add Active Directory Group to sudoers file
+echo '%linuxsudoers           ALL=(ALL)       ALL' >> /etc/sudoers
 
+#The goal is to use the group above, but you can also add the Administrators group to allow any user on the Domain Controller that is in that group to use sudo.
+echo '%Administrators	         ALL=(ALL)	       ALL' >> /etc/sudoers
+
+#Restart the SSH Service to be sure it will use the Kerberos Login Correctly
+systemctl restart ssh
+
+#MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
+```
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
 
