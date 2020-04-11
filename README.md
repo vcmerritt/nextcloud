@@ -202,10 +202,12 @@ systemctl restart apache2
 ```
 
 # Join the Domain and Configure Sudoers
-### Clean up or create the /etc/krb5.conf
-Copy this text to a notepad document and change the occurrences of MYDOMAIN.COM or mydomain.com to the correct domain name you are creating for your environment.
+## Install additional components
+apt-get install oddjob-mkhomedir realmd sssd-tools sssd libnss-sss libpam-sss adcli sssd-krb5 krb5-config krb5-user libpam-krb5 sudo -y
+
 
 ## Configure /etc/krb5.conf
+Copy this text to a notepad document and change the occurrences of MYDOMAIN.COM or mydomain.com to the correct domain name you are creating for your environment.
 ``` bash
 cat <<EOF > /etc/krb5.conf
 [libdefaults]
