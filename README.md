@@ -292,6 +292,8 @@ echo '%linuxsudoers           ALL=(ALL)       ALL' >> /etc/sudoers
 #The goal is to use the group above, but you can also add the Administrators group to allow any user on the Domain Controller that is in that group to use sudo.
 echo '%domain\ admins	         ALL=(ALL)	       ALL' >> /etc/sudoers
 
+#Restart services 
+systemctl restart sssd
 
 #MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
 ```
