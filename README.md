@@ -253,13 +253,37 @@ echo nameserver 192.168.2.41 >> /etc/resolv.conf
 #Join the domain
 /usr/sbin/realm join --user=DomainJoinUser mydomain.com --install=/
 
-#Modify the SSSD.conf to ensure the domain is capitalized in the correct locations.
-/usr/bin/sed -i "s/domains = mydomain.com/domains = MYDOMAIN.COM/" /etc/sssd/sssd.conf
-/usr/bin/sed -i "s/domain\/mydomain.com/domain\/MYDOMAIN.COM/" /etc/sssd/sssd.conf
-/usr/bin/sed -i "s/use_fully_qualified_names = True/use_fully_qualified_names = False/" /etc/sssd/sssd.conf
-echo "session optional      pam_oddjob_mkhomedir.so skel=/etc/skel" >> /etc/pam.d/common-session
-```
+#Tweak the /etc/sssd/sssd.conf file to enable authentication to the newly installed AD
+cat <<EOF > /etc/sssd/sssd.conf 
+[sssd]
+domains = MYDOMAIN.COM
+config_file_version = 2
+services = nss, pam
 
+[domain/MYDOMAIN.COM]
+ad_domain = mydomain.com
+krb5_realm = MYDOMAIN.COM
+realmd_tags = manages-system joined-with-adcli
+cache_credentials = True
+ad_maximum_machine_account_password_age = 30
+id_provider = ad
+krb5_store_password_if_offline = True
+default_shell = /bin/bash
+ldap_id_mapping = True
+ldap_schema = ad
+auto_private_groups = true
+dyndns_update = false
+dyndns_refresh_interval = 43200
+dyndns_update_ptr = false
+dyndns_ttl = 3600
+use_fully_qualified_names = False
+fallback_homedir = /home/%u@%d
+access_provider = ad
+id_provider = ad
+auth_provider = ad
+chpass_provider = ad
+EOF
+```
 ## Configure Sudoers to authorize users based on AD Groups
 ``` bash
 #Add Active Directory Group to sudoers file
