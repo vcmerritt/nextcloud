@@ -314,13 +314,13 @@ sudo su
 #Copy the certificates to the NextCloud Cert file in /var/www/html/nextcloud/resources/config/ca-bundle.crt
 #First create the entry for DC01
 echo "" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
-echo "DC01 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "DC01 Active Directory CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 cat DC1CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 
 #Now create the entry for DC02
 echo "" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
-echo "DC02 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "DC02 Active Directory CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 
