@@ -324,6 +324,8 @@ echo "DC02 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.c
 echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 
+#Reboot the NextCloud Server 
+/usr/sbin/reboot
 
 ```
 ## Install NGINX to enable SSL
