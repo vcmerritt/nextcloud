@@ -297,6 +297,35 @@ systemctl restart sssd
 
 #MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
 ```
+
+##  Copy Samba Domain CA Certificates to support LDAPS
+Use Putty to connect to the NextCloud server as administrator (do not SU to root, just stay logged in as administrator).
+``` bash
+scp 192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
+scp 192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
+sudo cp *.crt /usr/local/share/ca-certificates
+sudo /usr/sbin/update-ca-certificates
+
+#Elevate rights to root
+sudo su
+
+#Copy the certificates to the NextCloud Cert file in /var/www/html/nextcloud/resources/config/ca-bundle.crt
+#First create the entry for DC01
+echo "" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "DC01 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+cat DC1CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+
+#Now create the entry for DC02
+echo "" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "DC02 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
+
+
+
+
+```
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
 
