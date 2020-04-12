@@ -299,7 +299,8 @@ systemctl restart sssd
 ```
 
 ##  Copy Samba Domain CA Certificates to support LDAPS
-Use Putty to connect to the NextCloud server as administrator (do not SU to root, just stay logged in as administrator).
+Use Putty to connect to the NextCloud server as administrator. Do not SU to root until indicated below as a regular user session will suffice initially.
+
 ``` bash
 scp 192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
 scp 192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
@@ -321,8 +322,6 @@ echo "" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 echo "DC02 ROOT CA Cert" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
-
-
 
 
 ```
