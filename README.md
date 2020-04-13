@@ -306,8 +306,8 @@ systemctl restart sssd
 Use Putty to connect to the NextCloud server as administrator. Do not SU to root until indicated below as a regular user session will suffice initially.
 
 ``` bash
-#While logged onto the NextCloud Server with Putty as a DOMAIN USER with sudo capabilities, execute the following:
-
+#Connect to the Domain Controllers as the domain administrator and copy the DC Certificates locally to the NextCloud Server
+#YOU WILL NEED TO ANSWER ALL PROMPTS INCLUDING SPECIFYING THE DOMAIN ADMIN PASSWORD TWICE
 scp administrator@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
 scp administrator@192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
 sudo cp *.crt /usr/local/share/ca-certificates
