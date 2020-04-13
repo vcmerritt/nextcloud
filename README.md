@@ -249,10 +249,13 @@ echo domain mydomain.com > /etc/resolv.conf
 echo search mydomain.com >> /etc/resolv.conf
 echo nameserver 192.168.2.40 >> /etc/resolv.conf
 echo nameserver 192.168.2.41 >> /etc/resolv.conf
+```
 
-#Join the domain
+## Join the domain
+``` bash
 /usr/sbin/realm join --user=administrator mydomain.com --install=/
-
+```
+## Modify Configuration Files
 #Tweak the /etc/sssd/sssd.conf file to enable authentication to the newly installed AD
 cat <<EOF > /etc/sssd/sssd.conf 
 [sssd]
@@ -303,8 +306,9 @@ Use Putty to connect to the NextCloud server as administrator. Do not SU to root
 
 ``` bash
 #While logged onto the NextCloud Server with Putty as a DOMAIN USER with sudo capabilities, execute the following:
-scp 192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
-scp 192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
+
+scp administrator@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
+scp administrator@192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
 sudo cp *.crt /usr/local/share/ca-certificates
 sudo /usr/sbin/update-ca-certificates
 
