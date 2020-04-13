@@ -255,6 +255,7 @@ echo nameserver 192.168.2.41 >> /etc/resolv.conf
 ``` bash
 /usr/sbin/realm join --user=administrator mydomain.com --install=/
 ```
+``` bash
 ## Modify Configuration Files
 #Tweak the /etc/sssd/sssd.conf file to enable authentication to the newly installed AD
 cat <<EOF > /etc/sssd/sssd.conf 
