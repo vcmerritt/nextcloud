@@ -312,7 +312,7 @@ wget https://raw.githubusercontent.com/nextcloud/server/5bf3d1bb384da56adbf20575
 ```
 
 ##  Copy Samba Domain CA Certificates to support LDAPS
-Use Putty to connect to the NextCloud server as administrator. Do not SU to root until indicated below as a regular user session will suffice initially.
+Use Putty to connect to the NextCloud server.
 
 ``` bash
 #Connect to the Domain Controllers as the domain administrator and copy the DC Certificates locally to the NextCloud Server
@@ -321,9 +321,6 @@ scp administrator@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
 scp administrator@192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
 sudo cp *.crt /usr/local/share/ca-certificates
 sudo /usr/sbin/update-ca-certificates
-
-#Elevate rights to root
-sudo su
 
 #Copy the certificates to the NextCloud Cert file in /var/www/html/nextcloud/resources/config/ca-bundle.crt
 #First create the entry for DC01
