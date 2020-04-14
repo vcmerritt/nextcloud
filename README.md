@@ -303,9 +303,9 @@ cat <<EOF > /etc/samba/smb.conf
  [global]
     netbios name = NEXTCLOUD01
     security = ADS
-    workgroup = TESTDOMAIN
+    workgroup = MYDOMAIN
     kerberos method = secrets and keytab
-    realm = TESTDOMAIN.COM
+    realm = MYDOMAIN.COM
 
     log file = /var/log/samba/%m.log
     log level = 1
@@ -315,8 +315,8 @@ cat <<EOF > /etc/samba/smb.conf
     idmap config *:range = 2000-9999
 
     # idmap config for domain TESTDOM
-    idmap config TESTDOMAIN:backend = rid
-    idmap config TESTDOMAIN:range = 10000-99999
+    idmap config MYDOMAIN:backend = rid
+    idmap config MYDOMAIN:range = 10000-99999
 
     # Use template settings for login shell and home directory
     winbind nss info = template
