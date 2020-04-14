@@ -333,9 +333,14 @@ echo '%domain\ admins	         ALL=(ALL)	       ALL' >> /etc/sudoers
 #Restart services 
 systemctl restart sssd
 
-#  Use kinit to connect as administrator and update the /etc/krb5.keytab
+#Use kinit to connect as administrator and update the /etc/krb5.keytab
 kinit administrator
 net ads keytab create
+
+#Trigger DNS Dynamic Updates
+net ads dns register -P
+
+Note:  If the DNS Dynamic updates fails, then validate the system hostname in /etc/hosts and ensure the fully qualified name is correct.
 
 #MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
 ```
