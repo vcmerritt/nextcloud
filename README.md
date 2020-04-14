@@ -315,6 +315,9 @@ wget https://raw.githubusercontent.com/nextcloud/server/5bf3d1bb384da56adbf20575
 Use Putty to connect to the NextCloud server.
 
 ``` bash
+#Change to the root user home directory
+cd ~/
+
 #Connect to the Domain Controllers as the domain administrator and copy the DC Certificates locally to the NextCloud Server
 #YOU WILL NEED TO ANSWER ALL PROMPTS INCLUDING SPECIFYING THE DOMAIN ADMIN PASSWORD TWICE
 scp administrator@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
