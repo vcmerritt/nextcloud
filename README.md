@@ -185,7 +185,8 @@ Note:  The command above will add the following line to the config.php file for 
    'memcache.local' => '\OC\Memcache\APCu',
 
 #Modify the domain names to allow for connections to nextcloud using *.testdomain.com (ie. nextcloud01.mydomain.com)
-sed -i 's/),/  1 \=\> \'"'mydomain.com\'"'/g' config.php
+sed -i 's/),/  1 \=\> \'"'mydomain.com\'"'\n  ),/g' config.php
+
 
 
 #php.ini additional settings
