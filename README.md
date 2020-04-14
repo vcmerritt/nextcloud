@@ -183,7 +183,11 @@ sed -i 's/  '"'installed'"' => true,/  '"'memcache\.local'"' => '"'\\\\OC\\\\\Me
 
 Note:  The command above will add the following line to the config.php file for nextcloud before the line that states installed => true
    'memcache.local' => '\OC\Memcache\APCu',
-   
+
+#Modify the domain names to allow for connections to nextcloud using *.testdomain.com (ie. nextcloud01.mydomain.com)
+sed -i 's/),/  1 \=\> \'"'mydomain.com\'"'/g' config.php
+
+
 #php.ini additional settings
 sed -i 's/;opcache\.enable=1/opcache\.enable=1\napc\.enable_cli=1/g' /etc/php/7.3/apache2/php.ini
 sed -i 's/;opcache\.interned_strings_buffer=8/opcache\.interned_strings_buffer=8/g' /etc/php/7.3/apache2/php.ini
