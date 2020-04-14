@@ -302,6 +302,15 @@ systemctl restart sssd
 #MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
 ```
 
+##  Fix Access.php to support LDAP Groups 
+The Access.php file is broken in NextCloud 18.02, and 18.03 but can be fixed by replacing Access.php as per the following instructions.
+``` bash
+# Login to the server via Putty to fix the LDAP Groups issue as there is a bug in the Access.php shipped with NextCloud 18.02
+cd /var/www/html/nextcloud/apps/user_ldap/lib
+mv Access.php Access.php.bak
+wget https://raw.githubusercontent.com/nextcloud/server/5bf3d1bb384da56adbf205752be8f840aac3b0c5/apps/user_ldap/lib/Access.php
+```
+
 ##  Copy Samba Domain CA Certificates to support LDAPS
 Use Putty to connect to the NextCloud server as administrator. Do not SU to root until indicated below as a regular user session will suffice initially.
 
