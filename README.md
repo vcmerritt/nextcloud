@@ -288,6 +288,40 @@ auth_provider = ad
 chpass_provider = ad
 EOF
 ```
+
+## Configure /etc/samba/smb.conf for client connections
+``` bash 
+cat <<EOF > /etc/samba/smb.conf
+ [global]
+    netbios name = NEXTCLOUD01
+    security = ADS
+    workgroup = TESTDOMAIN
+    kerberos method = secrets and keytab
+    realm = TESTDOMAIN.COM
+
+    log file = /var/log/samba/%m.log
+    log level = 1
+
+    # Default idmap config used for BUILTIN and local windows accounts/groups
+    idmap config *:backend = tdb
+    idmap config *:range = 2000-9999
+
+    # idmap config for domain TESTDOM
+    idmap config TESTDOMAIN:backend = rid
+    idmap config TESTDOMAIN:range = 10000-99999
+
+    # Use template settings for login shell and home directory
+    winbind nss info = template
+    template shell = /bin/bash
+    template homedir = /home/%U
+
+    winbind enum users = Yes
+    winbind enum groups = Yes
+    winbind use default domain = Yes
+    encrypt passwords = Yes
+EOF
+```
+
 ## Configure Sudoers to authorize users based on AD Groups
 ``` bash
 #Add Active Directory Group to sudoers file
@@ -298,6 +332,10 @@ echo '%domain\ admins	         ALL=(ALL)	       ALL' >> /etc/sudoers
 
 #Restart services 
 systemctl restart sssd
+
+#  Use kinit to connect as administrator and update the /etc/krb5.keytab
+kinit administrator
+net ads keytab create
 
 #MAKE SURE TO LOG OUT OF ALL Putty Sessions after making the changes to the SUDOERS group and then use putty to log back into the DC and test things out. 
 ```
