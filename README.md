@@ -259,7 +259,7 @@ echo nameserver 192.168.2.41 >> /etc/resolv.conf
 
 ## Join the domain
 ``` bash
-/usr/sbin/realm join --user=administrator mydomain.com --install=/
+/usr/sbin/realm join --user=AD_Admin mydomain.com --install=/
 ```
 ``` bash
 ## Modify Configuration Files
@@ -340,7 +340,7 @@ echo '%domain\ admins	         ALL=(ALL)	       ALL' >> /etc/sudoers
 systemctl restart sssd
 
 #Use kinit to connect as administrator and update the /etc/krb5.keytab
-kinit administrator
+kinit AD_Admin
 net ads keytab create
 
 #Trigger DNS Dynamic Updates
@@ -369,8 +369,8 @@ cd ~/
 
 #Connect to the Domain Controllers as the domain administrator and copy the DC Certificates locally to the NextCloud Server
 #YOU WILL NEED TO ANSWER ALL PROMPTS INCLUDING SPECIFYING THE DOMAIN ADMIN PASSWORD TWICE
-scp administrator@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
-scp administrator@192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
+scp AD_Admin@192.168.2.40:/var/lib/samba/private/tls/ca.pem ./DC1CA.crt
+scp AD_Admin@192.168.2.41:/var/lib/samba/private/tls/ca.pem ./DC2CA.crt
 sudo cp *.crt /usr/local/share/ca-certificates
 sudo /usr/sbin/update-ca-certificates
 
@@ -399,7 +399,7 @@ cat <<EOF > ~/nextcloud.ldif
 ## Create Group(s)
 
 #Create Next_Admins Group for NextCloud.
-dn: cn=Next_Admins,ou=Groups,ou=MYHQ,dc=testdomain,dc=com
+dn: cn=Next_Admins,ou=Groups,ou=MYHQ,dc=mydomain,dc=com
 changetype: add
 objectClass: top
 objectClass: group
@@ -411,7 +411,7 @@ name: Next_Admins
 
 ##  Create and Enable User Accounts
 #Create User Account called svc_nextadmin in the specified OU's
-dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=testdomain,dc=com
+dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=mydomain,dc=com
 changetype: add
 objectClass: top
 objectClass: person
@@ -421,7 +421,7 @@ description: Account used for read only access to the AD by NextCloud
 sAMAccountName: svc_nextadmin
 name: svc_nextadmin
 PwdLastSet: -1
-userPrincipalName: svc_nextadmin@testdomain.com
+userPrincipalName: svc_nextadmin@mydomain.com
 displayName: svc_nextadmin
 givenName: svc_nextadmin
 cn: svc_nextadmin
@@ -429,7 +429,7 @@ sn: svc_nextadmin
 uid: svc_nextadmin
 
 #Set the user account to enabled
-dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=testdomain,dc=com
+dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=mydomain,dc=com
 description: Account used for read only access to the AD by NextCloud
 changetype: modify
 replace: userAccountControl
@@ -438,7 +438,7 @@ userAccountControl: 512
 #
 
 #Create User Account called ad_nextadmin in the specified OU
-dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=testdomain,dc=com
+dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=mydomain,dc=com
 changetype: add
 objectClass: top
 objectClass: person
@@ -447,7 +447,7 @@ objectClass: user
 sAMAccountName: ad_nextadmin
 name: ad_nextadmin
 PwdLastSet: -1
-userPrincipalName: ad_nextadmin@testdomain.com
+userPrincipalName: ad_nextadmin@mydomain.com
 displayName: ad_nextadmin
 givenName: ad_nextadmin
 cn: ad_nextadmin
@@ -455,7 +455,7 @@ sn: ad_nextadmin
 uid: ad_nextadmin
 
 #Set the user account to enabled
-dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=testdomain,dc=com
+dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=mydomain,dc=com
 changetype: modify
 replace: userAccountControl
 userAccountControl: 512
@@ -467,14 +467,14 @@ EOF
 ## Create AD User Accounts from LDIF, Add Users to Group(s), and Change Key NextCloud AD User Passwords
 ``` bash
 #Process ldif to create user accounts
-ldapmodify -H ldaps://sambadc01.testdomain.com -D cn=Administrator,cn=Users,DC=mydomain,dc=com -W -x -f ./nextcloud.ldif
+ldapmodify -H ldaps://sambadc01.mydomain.com -D cn=AD_Admin,cn=Users,DC=mydomain,dc=com -W -x -f ./nextcloud.ldif
 
 #Add user to group (you will need to log in as the administrator of the domain)
-net rpc group ADDMEM Next_Admins ad_nextadmin -U administrator
+net rpc group ADDMEM Next_Admins ad_nextadmin -U AD_Admin
 
 #Change the Password for the User Accounts ad_nextadmin and svc_nextcloud (You will need to log in as the administrator of the domain)
-rpcclient -U administrator //sambadc01 -c "setuserinfo2 svc_nextcloud 23 'ANewP@ssw0rd'"
-rpcclient -U administrator //sambadc01 -c "setuserinfo2 ad_nextadmin 23 'ANewP@ssw0rd'"
+rpcclient -U AD_Admin //sambadc01 -c "setuserinfo2 svc_nextcloud 23 'ANewP@ssw0rd'"
+rpcclient -U AD_Admin //sambadc01 -c "setuserinfo2 ad_nextadmin 23 'ANewP@ssw0rd'"
 ```
 
 
