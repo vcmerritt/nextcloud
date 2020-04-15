@@ -469,7 +469,8 @@ EOF
 ldapmodify -H ldaps://sambadc01.mydomain.com -D cn=AD_Admin,cn=Users,DC=mydomain,dc=com -W -x -f ./nextcloud.ldif
 
 #Add user to group (you will need to log in as the administrator of the domain)
-net rpc group ADDMEM Next_Admins ad_nextadmin -U AD_Admin
+ssh -l AD_Admin -t SAMBADC01 "net rpc group ADDMEM Next_Admins ad_nextadmin"
+#net rpc group ADDMEM Next_Admins ad_nextadmin -U AD_Admin
 
 #Change the Password for the User Accounts ad_nextadmin and svc_nextcloud (You will need to log in as the administrator of the domain)
 rpcclient -U AD_Admin //sambadc01 -c "setuserinfo2 svc_nextcloud 23 'ANewP@ssw0rd'"
