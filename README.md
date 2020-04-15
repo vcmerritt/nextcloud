@@ -411,7 +411,7 @@ name: Next_Admins
 
 ##  Create and Enable User Accounts
 #Create User Account called svc_nextadmin in the specified OU's
-dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=mydomain,dc=com
+dn: cn=svc_nextcloud,ou=Users,ou=MYHQ,dc=mydomain,dc=com
 changetype: add
 objectClass: top
 objectClass: person
@@ -422,15 +422,14 @@ sAMAccountName: svc_nextadmin
 name: svc_nextadmin
 PwdLastSet: -1
 userPrincipalName: svc_nextadmin@mydomain.com
-displayName: svc_nextadmin
-givenName: svc_nextadmin
-cn: svc_nextadmin
-sn: svc_nextadmin
-uid: svc_nextadmin
+displayName: svc_nextcloud
+givenName: svc_nextcloud
+cn: svc_nextcloud
+sn: svc_nextcloud
+uid: svc_nextcloud
 
 #Set the user account to enabled
-dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=mydomain,dc=com
-description: Account used for read only access to the AD by NextCloud
+dn: cn=svc_nextcloud,ou=Users,ou=MYHQ,dc=mydomain,dc=com
 changetype: modify
 replace: userAccountControl
 userAccountControl: 512
