@@ -418,10 +418,10 @@ objectClass: person
 objectClass: organizationalPerson
 objectClass: user
 description: Account used for read only access to the AD by NextCloud
-sAMAccountName: svc_nextadmin
+sAMAccountName: svc_nextcloud
 name: svc_nextadmin
 PwdLastSet: -1
-userPrincipalName: svc_nextadmin@mydomain.com
+userPrincipalName: svc_nextcloud@mydomain.com
 displayName: svc_nextcloud
 givenName: svc_nextcloud
 cn: svc_nextcloud
