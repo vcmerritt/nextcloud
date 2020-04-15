@@ -389,7 +389,7 @@ cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 
 ```
 
-## Create Active Directory User Accounts for NextCloud Use
+## Create LDIF file to use for creation of Active Directory User Accounts for NextCloud
 ``` bash
 cd ~/
 
@@ -462,8 +462,10 @@ userAccountControl: 512
 
 #### END nextcloud.ldif conents ####
 EOF
+```
 
-
+## Create AD User Accounts from LDIF, Add Users to Group(s), and Change Key NextCloud AD User Passwords
+``` bash
 #Process ldif to create user accounts
 ldapmodify -H ldaps://sambadc01.testdomain.com -D cn=Administrator,cn=Users,DC=mydomain,dc=com -W -x -f ./nextcloud.ldif
 
@@ -473,7 +475,6 @@ net rpc group ADDMEM Next_Admins ad_nextadmin -U administrator
 #Change the Password for the User Accounts ad_nextadmin and svc_nextcloud (You will need to log in as the administrator of the domain)
 rpcclient -U administrator //sambadc01 -c "setuserinfo2 svc_nextcloud 23 'ANewP@ssw0rd'"
 rpcclient -U administrator //sambadc01 -c "setuserinfo2 ad_nextadmin 23 'ANewP@ssw0rd'"
-
 ```
 
 
