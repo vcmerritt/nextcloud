@@ -387,10 +387,96 @@ echo "DC02 Active Directory CA Cert" >> /var/www/html/nextcloud/resources/config
 echo "=========================================" >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 cat DC2CA.crt >> /var/www/html/nextcloud/resources/config/ca-bundle.crt
 
-#Reboot the NextCloud Server 
-/usr/sbin/reboot
+```
+
+## Create Active Directory User Accounts for NextCloud Use
+``` bash
+cd ~/
+
+cat <<EOF > ~/nextcloud.ldif
+#### Begin nextcloud.ldif contents ####
+
+## Create Group(s)
+
+#Create Next_Admins Group for NextCloud.
+dn: cn=Next_Admins,ou=Groups,ou=MYHQ,dc=testdomain,dc=com
+changetype: add
+objectClass: top
+objectClass: group
+description: This group is used in NextCloud to assign admin permissions to shared objects.
+sAMAccountName: Next_Admins
+cn: Next_Admins
+name: Next_Admins
+##
+
+##  Create and Enable User Accounts
+#Create User Account called svc_nextadmin in the specified OU's
+dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=testdomain,dc=com
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+description: Account used for read only access to the AD by NextCloud
+sAMAccountName: svc_nextadmin
+name: svc_nextadmin
+PwdLastSet: -1
+userPrincipalName: svc_nextadmin@testdomain.com
+displayName: svc_nextadmin
+givenName: svc_nextadmin
+cn: svc_nextadmin
+sn: svc_nextadmin
+uid: svc_nextadmin
+
+#Set the user account to enabled
+dn: cn=svc_nextadmin,ou=Users,ou=MYHQ,dc=testdomain,dc=com
+description: Account used for read only access to the AD by NextCloud
+changetype: modify
+replace: userAccountControl
+userAccountControl: 512
+
+#
+
+#Create User Account called ad_nextadmin in the specified OU
+dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=testdomain,dc=com
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: user
+sAMAccountName: ad_nextadmin
+name: ad_nextadmin
+PwdLastSet: -1
+userPrincipalName: ad_nextadmin@testdomain.com
+displayName: ad_nextadmin
+givenName: ad_nextadmin
+cn: ad_nextadmin
+sn: ad_nextadmin
+uid: ad_nextadmin
+
+#Set the user account to enabled
+dn: cn=ad_nextadmin,ou=Admins,ou=MYHQ,dc=testdomain,dc=com
+changetype: modify
+replace: userAccountControl
+userAccountControl: 512
+
+#### END nextcloud.ldif conents ####
+EOF
+
+
+#Process ldif to create user accounts
+ldapmodify -H ldaps://sambadc01.testdomain.com -D cn=Administrator,cn=Users,DC=mydomain,dc=com -W -x -f ./nextcloud.ldif
+
+#Add user to group (you will need to log in as the administrator of the domain)
+net rpc group ADDMEM Next_Admins ad_nextadmin -U administrator
+
+#Change the Password for the User Accounts ad_nextadmin and svc_nextcloud (You will need to log in as the administrator of the domain)
+rpcclient -U administrator //sambadc01 -c "setuserinfo2 svc_nextcloud 23 'ANewP@ssw0rd'"
+rpcclient -U administrator //sambadc01 -c "setuserinfo2 ad_nextadmin 23 'ANewP@ssw0rd'"
 
 ```
+
+
 ## Install NGINX to enable SSL
 Navigate to the following github url and follow the instructions to install NGINX on the NextCloud server.
 
